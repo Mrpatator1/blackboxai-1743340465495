@@ -1,0 +1,147 @@
+/* Hero Section */
+.hero {
+    background-image: url('https://images.pexels.com/photos/163726/belgium-antwerp-railway-train-163726.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Tab Animation */
+.tab-btn {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+.tab-btn.active::after {
+    width: 100%;
+}
+
+/* Table Styles */
+.table-container {
+    min-height: 300px;
+}
+
+.train-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.train-table th {
+    background-color: #f3f4f6;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+}
+
+.train-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.train-table tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.on-time {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.delayed {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Admin Styles */
+.admin-panel {
+    background-color: #f8f9fa;
+    border-left: 1px solid #e5e7eb;
+    padding: 1rem;
+}
+
+.admin-form {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.admin-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.admin-form input, 
+.admin-form select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.admin-form button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-form button:hover {
+    background-color: #2563eb;
+}
+
+/* Loading Animation */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .train-table th, .train-table td {
+        padding: 8px 12px;
+        font-size: 0.875rem;
+    }
+}
