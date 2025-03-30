@@ -395,3 +395,83 @@ async function initAdmin() {
 if (window.location.pathname.includes('admin.html')) {
     document.addEventListener('DOMContentLoaded', initAdmin);
 }
+
+// Fonctions de gestion des données
+const TRAINS_FILE = 'trains.json';
+
+// Sauvegarder les trains
+async function saveTrains(trains) {
+  try {
+    const response = await fetch('/save-trains', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ trains })
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur de sauvegarde:", error);
+    return false;
+  }
+}
+
+// Charger les trains
+async function loadTrains() {
+  try {
+    const response = await fetch(TRAINS_FILE);
+    const data = await response.json();
+    return data.trains || [];
+  } catch (error) {
+    console.error("Erreur de chargement:", error);
+    return [];
+  }
+}
+
+// Ajouter un train
+async function addTrain(trainData) {
+  const trains = await loadTrains();
+  trains.push(trainData);
+  return await saveTrains(trains);
+}
+
+// Afficher les trains
+async function displayTrains() {
+  const trains = await loadTrains();
+  const table = document.getElementById('trainTable');
+  
+  if (table) {
+    table.innerHTML = trains.map(train => `
+      <tr>
+        <td>${train.number}</td>
+        <td>${train.destination}</td>
+        <td>${train.time}</td>
+        <td>${train.platform}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+// Gestion du formulaire
+document.getElementById('trainForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const trainData = {
+    number: document.getElementById('trainNumber').value,
+    destination: document.getElementById('trainDestination').value,
+    time: document.getElementById('trainTime').value,
+    platform: document.getElementById('trainPlatform').value,
+    date: new Date().toISOString()
+  };
+
+  if (await addTrain(trainData)) {
+    alert('Train enregistré!');
+    await displayTrains();
+    e.target.reset();
+  } else {
+    alert("Erreur d'enregistrement");
+  }
+});
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', displayTrains);
