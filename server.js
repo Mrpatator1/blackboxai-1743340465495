@@ -65,3 +65,18 @@ app.post('/api/trains', (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const fs = require('fs');
+const path = require('path');
+
+// Route pour sauvegarder les trains
+app.post('/save-trains', (req, res) => {
+  try {
+    const dataPath = path.join(__dirname, 'trains.json');
+    fs.writeFileSync(dataPath, JSON.stringify({ trains: req.body.trains }, null, 2));
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erreur de sauvegarde' });
+  }
+});
